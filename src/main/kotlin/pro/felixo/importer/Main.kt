@@ -5,7 +5,9 @@ import kotlinx.serialization.decodeFromString
 import java.io.File
 
 fun main(vararg args: String) {
-    val importer = Importer(Client.accessToken(args[0]))
+    val importer = Importer(Client.accessToken(args[0]).apply {
+        headers.put("Asana-Enable", "new_user_task_lists")
+    })
 
     val directory = File(args[1]).also {
         require(it.isDirectory) { "$it is not a directory! "}
